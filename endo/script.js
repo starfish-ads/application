@@ -5,19 +5,22 @@ function submitForm() {
     var family_selection = document.querySelector('input[name="family"]:checked');
     
     if(!date_selection || !area_selection || !housing_selection || !family_selection) {
-    alert('全てのグループで選択してください。');
-    return;
+        alert('全てのグループで選択してください。');
+        return;
     }
 
     var selections = {
-    date: date_selection.value,
-    area: area_selection.value,
-    housing: housing_selection.value,
-    family: family_selection.value
+        date: date_selection.value,
+        area: area_selection.value,
+        housing: housing_selection.value,
+        family: family_selection.value
     };
 
-    google.script.run.withSuccessHandler(updateResult).processForm(selections);
+    // processForm 関数を直接呼び出し、結果を updateResult に渡す
+    var result = processForm(selections);
+    updateResult(result);
 }
+
 
 function updateResult(output) {
     document.getElementById("result").innerText = output;
