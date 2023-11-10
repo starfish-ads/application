@@ -16,15 +16,10 @@ function submitForm() {
         family: family_selection.value
     };
 
-    // processForm 関数を直接呼び出し、結果を updateResult に渡す
     var result = processForm(selections);
-    updateResult(result);
+    document.getElementById("result").innerText = result;
 }
 
-
-function updateResult(output) {
-    document.getElementById("result").innerText = output;
-}
 
 function processForm(selections) {
     var date = selections.date;
