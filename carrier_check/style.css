@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0; /* 薄いグレーの背景 */
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#phoneForm {
+    text-align: center;
+}
+
+#phone {
+    font-size: 16px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#result {
+    color: red; /* 赤文字で表示 */
+    font-size: 24px; /* 大きな文字 */
+    margin-top: 20px;
+}
