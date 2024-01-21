@@ -1,54 +1,39 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-ENQG6K0RPD"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-
-			gtag('config', 'G-ENQG6K0RPD');
-		</script>
-		<link rel="stylesheet" href="style.css">
-		<base target="_top">
-	</head>
-	
-	<body>
-		<div class="container">
-			<div class="section">
-			<label>通電希望日:</label>
-			<input type="radio" name="date" id="date_n+0" value="n+0"><label for="date_n+0">当日</label>
-			<input type="radio" name="date" id="date_n+2" value="n+2"><label for="date_n+2">N+1営～2営</label>
-			<input type="radio" name="date" id="date_n+3" value="n+3"><label for="date_n+3">N+3営以上</label>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+		<form id="myForm">
+			<div id="date-section" class="section">
+				<label>通電希望日:</label>
 			</div>
 
-			<div class="section">
-			<label>エリア:</label>
-			<input type="radio" name="area" id="area_tokyo" value="tokyo"><label for="area_tokyo">東京</label>
-			<input type="radio" name="area" id="area_hokkaido" value="hokkaido"><label for="area_hokkaido">北海道</label>
-			<input type="radio" name="area" id="area_tohoku" value="tohoku"><label for="area_tohoku">東北</label>
-			<input type="radio" name="area" id="area_kyushu" value="kyushu"><label for="area_kyushu">九州</label>
-			<input type="radio" name="area" id="area_hokuriku" value="hokuriku"><label for="area_hokuriku">北陸</label>
-			<input type="radio" name="area" id="area_other" value="other"><label for="area_other">その他</label>
+			<div id="area-section" class="section">
+				<label>エリア:</label>
 			</div>
 
-			<div class="section">
-			<label>住宅種別:</label>
-			<input type="radio" name="housing" id="housing_mansion" value="mansion"><label for="housing_mansion">集合住宅</label>
-			<input type="radio" name="housing" id="housing_home" value="home"><label for="housing_home">戸建</label>
+			<div id="housing-section" class="section">
+				<label>住宅種別:</label>
 			</div>
 
-			<div class="section">
-			<label>世帯人数:</label>
-			<input type="radio" name="family" id="family_1" value="1"><label for="family_1">1人</label>
-			<input type="radio" name="family" id="family_2" value="2"><label for="family_2">2人</label>
-			<input type="radio" name="family" id="family_3" value="3"><label for="family_3">3人以上</label>
+			<div id="family-section" class="section">
+				<label>世帯人数:</label>
 			</div>
 
-			<button onclick="submitForm()">送信</button>
-			<p id="result"></p>
-		</div>
-		<script src="script.js"></script>
-	</body>
+			<div id="payment-section" class="section">
+				<label>決済方法:</label>
+			</div>
+
+			<button type="button" onclick="submitForm()">送信</button>
+		</form>
+		<p id="result"></p>
+		
+    </div>
+
+    <script src="/endo/script.js"></script>
+</body>
 </html>

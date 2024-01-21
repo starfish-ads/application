@@ -1,65 +1,137 @@
-function submitForm() {
-    var date_selection = document.querySelector('input[name="date"]:checked');
-    var area_selection = document.querySelector('input[name="area"]:checked');
-    var housing_selection = document.querySelector('input[name="housing"]:checked');
-    var family_selection = document.querySelector('input[name="family"]:checked');
-    
-    if(!date_selection || !area_selection || !housing_selection || !family_selection) {
-        alert('全てのグループで選択してください。');
-        return;
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    const apiUrl = 'https://us-central1-private-287112.cloudfunctions.net/promotion_suggestion';
 
-    var selections = {
-        date: date_selection.value,
-        area: area_selection.value,
-        housing: housing_selection.value,
-        family: family_selection.value
+    // POSTリクエストの設定
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'init' })
     };
 
-    var result = processForm(selections);
-    document.getElementById("result").innerText = result;
+    // APIへのリクエストとレスポンスの処理
+    fetch(apiUrl, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+            populateForm(data);
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+});
+
+function populateForm(data) {
+    // 通電希望日のセクション
+    const dateSection = document.getElementById('date-section');
+    if (data['date']) {
+        data['date'].forEach(option => {
+            const input = createRadioButton('date', option);
+            const label = createLabel('date', option);
+            dateSection.appendChild(input);
+            dateSection.appendChild(label);
+        });
+    }
+
+    // エリアのセクション
+    const areaSection = document.getElementById('area-section');
+    if (data['area']) {
+        data['area'].forEach(option => {
+            const input = createRadioButton('area', option);
+            const label = createLabel('area', option);
+            areaSection.appendChild(input);
+            areaSection.appendChild(label);
+        });
+    }
+
+    // 住宅種別のセクション
+    const housingSection = document.getElementById('housing-section');
+    if (data['housing']) {
+        data['housing'].forEach(option => {
+            const input = createRadioButton('housing', option);
+            const label = createLabel('housing', option);
+            housingSection.appendChild(input);
+            housingSection.appendChild(label);
+        });
+    }
+
+    // 世帯人数のセクション
+    const familySection = document.getElementById('family-section');
+    if (data['family']) {
+        data['family'].forEach(option => {
+            const input = createRadioButton('family', option);
+            const label = createLabel('family', option);
+            familySection.appendChild(input);
+            familySection.appendChild(label);
+        });
+    }
+
+    // 支払い種別のセクション
+    const paymentSection = document.getElementById('payment-section');
+    if (data['payment']) {
+        data['payment'].forEach(option => {
+            const input = createRadioButton('payment', option);
+            const label = createLabel('payment', option);
+            paymentSection.appendChild(input);
+            paymentSection.appendChild(label);
+        });
+    }
+}
+
+// ラジオボタンとラベルを生成するヘルパー関数
+function createRadioButton(name, value) {
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = name;
+    input.id = `${name}_${value}`;
+    input.value = value;
+    return input;
+}
+
+function createLabel(name, value) {
+    const label = document.createElement('label');
+    label.htmlFor = `${name}_${value}`;
+    label.textContent = value;
+    return label;
 }
 
 
-function processForm(selections) {
-    var date = selections.date;
-    var area = selections.area;
-    var housing = selections.housing;
-    var family = selections.family;
+function submitForm() {
+    const form = document.getElementById('myForm');
+    const formData = new FormData(form);
 
-    if(date === "n+0"){
-    return "ライフでんき";
-    } else if (date === "n+2") {
-    return "アースインフィニティ";
-    } else if (date === "n+3") {
-    if (housing === "mansion") {
-        if ((family === "1" || family === "2") && area === "tokyo") {
-            return "関西電力";
-        } else if (family === "1") {
-            if (["tohoku", "hokkaido", "hokuriku", "kyushu", "other"].includes(area)) {
-                return "アースインフィニティ";
-            }
-        } else if ((family === "3")) {
-            if (["tokyo"].includes(area)) {
-                return "バリューでんき（CDエナジー商流）";
-            }
-        } else if ((family === "2" || family === "3")) {
-            if (["hokkaido", "hokuriku", "kyushu"].includes(area)) {
-                return "バリューでんき（大阪ガス商流）";
-            }
-        } else if (family === "3") {
-            if (["tohoku", "hokkaido", "hokuriku", "kyushu", "other"].includes(area)) {
-                return "バリューでんき（大阪ガス商流）";
-            }
-        }
-    } else if (housing === "home") {
-        if (area === "tokyo") {
-            return "バリューでんき（CDエナジー商流）";
-        } else if (["tohoku", "hokkaido", "hokuriku", "kyushu", "other"].includes(area)) {
-            return "バリューでんき（大阪ガス商流）";
-        }
-    }
-    }
+    // フォームデータをJSONオブジェクトに変換
+    const data = {
+        status: 'check',
+        // 他の必要なフォームフィールドをここに追加
+    };
+    formData.forEach((value, key) => { data[key] = value; });
 
-return "条件に合致するプロバイダーが見つかりません";
+    // 送信するJSONデータをコンソールに出力
+    console.log("Sending data:", data);
+
+    fetch('https://us-central1-private-287112.cloudfunctions.net/promotion_suggestion', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Received data:", data);
+        if (Object.keys(data).length === 0) {
+            resultDiv.innerText = 'そのパターンはありません';
+        } else {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerText = JSON.stringify(data[0]['result']);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
