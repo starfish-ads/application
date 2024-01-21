@@ -97,9 +97,6 @@ function submitForm() {
     };
     formData.forEach((value, key) => { data[key] = value; });
 
-    // 送信するJSONデータをコンソールに出力
-    console.log("Sending data:", data);
-
     fetch('https://us-central1-private-287112.cloudfunctions.net/promotion_suggestion', {
         method: 'POST',
         headers: {
@@ -114,7 +111,6 @@ function submitForm() {
         return response.json();
     })
     .then(data => {
-        console.log("Received data:", data);
         if (Object.keys(data).length === 0) {
             resultDiv.innerText = 'そのパターンはありません';
         } else {
