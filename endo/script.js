@@ -1,19 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const apiUrl = 'https://us-central1-private-287112.cloudfunctions.net/promotion_suggestion';
 
-    // POSTリクエストの設定
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'init' })
     };
 
-    // APIへのリクエストとレスポンスの処理
     fetch(apiUrl, requestOptions)
         .then(response => response.json())
         .then(data => {
             populateForm(data);
-            console.log(data);
         })
         .catch(error => {
             console.error('There was an error!', error);
@@ -21,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function populateForm(data) {
-    // 通電希望日のセクション
     const dateSection = document.getElementById('date-section');
     if (data['date']) {
         data['date'].forEach(option => {
@@ -32,7 +28,6 @@ function populateForm(data) {
         });
     }
 
-    // エリアのセクション
     const areaSection = document.getElementById('area-section');
     if (data['area']) {
         data['area'].forEach(option => {
@@ -43,7 +38,6 @@ function populateForm(data) {
         });
     }
 
-    // 住宅種別のセクション
     const housingSection = document.getElementById('housing-section');
     if (data['housing']) {
         data['housing'].forEach(option => {
@@ -54,7 +48,6 @@ function populateForm(data) {
         });
     }
 
-    // 世帯人数のセクション
     const familySection = document.getElementById('family-section');
     if (data['family']) {
         data['family'].forEach(option => {
@@ -65,7 +58,6 @@ function populateForm(data) {
         });
     }
 
-    // 支払い種別のセクション
     const paymentSection = document.getElementById('payment-section');
     if (data['payment']) {
         data['payment'].forEach(option => {
@@ -102,7 +94,6 @@ function submitForm() {
     // フォームデータをJSONオブジェクトに変換
     const data = {
         status: 'check',
-        // 他の必要なフォームフィールドをここに追加
     };
     formData.forEach((value, key) => { data[key] = value; });
 
