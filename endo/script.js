@@ -119,7 +119,10 @@ function submitForm() {
             resultDiv.innerText = 'そのパターンはありません';
         } else {
             var resultDiv = document.getElementById('result');
-            resultDiv.innerText = JSON.stringify(data[0]['result']);
+            resultDiv.innerText = data[0]['result'];
+
+            var scriptDiv = document.getElementById('script');
+            scriptDiv.innerText = data[0]['script'];
         }
     })
     .catch(error => {
