@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My LIFF App</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script>
+        async function initializeLiff() {
+            await liff.init({ liffId: "YOUR_LIFF_ID" });
+            if (liff.isLoggedIn()) {
+                // LIFF SDKを使った処理（例：ユーザー情報の取得）
+                const profile = await liff.getProfile();
+                document.getElementById("userDisplayName").textContent = profile.displayName;
+            } else {
+                // ユーザーがログインしていない場合の処理
+                liff.login();
+            }
+        }
+
+        window.onload = () => {
+            initializeLiff();
+        };
+    </script>
+</head>
+<body>
+    <h1>Welcome to My LIFF App</h1>
+    <p>User Display Name: <span id="userDisplayName"></span></p>
+</body>
+</html>
