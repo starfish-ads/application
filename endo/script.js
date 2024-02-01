@@ -18,6 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function populateForm(data) {
+    const companySection = document.getElementById('company-section');
+    if (data['date']) {
+        data['company'].forEach(option => {
+            const input = createRadioButton('company', option);
+            const label = createLabel('company', option);
+            dateSection.appendChild(input);
+            dateSection.appendChild(label);
+        });
+    }
+
     const dateSection = document.getElementById('date-section');
     if (data['date']) {
         data['date'].forEach(option => {
