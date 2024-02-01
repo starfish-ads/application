@@ -121,10 +121,10 @@ function submitForm() {
         return response.json();
     })
     .then(data => {
+        var resultDiv = document.getElementById('result');
         if (Object.keys(data).length === 0) {
             resultDiv.innerText = 'そのパターンはありません';
         } else {
-            var resultDiv = document.getElementById('result');
             resultDiv.innerText = data[0]['result'];
 
             var scriptDiv = document.getElementById('script');
