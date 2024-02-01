@@ -23,8 +23,8 @@ function populateForm(data) {
         data['company'].forEach(option => {
             const input = createRadioButton('company', option);
             const label = createLabel('company', option);
-            dateSection.appendChild(input);
-            dateSection.appendChild(label);
+            companySection.appendChild(input);
+            companySection.appendChild(label);
         });
     }
 
