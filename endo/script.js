@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function populateForm(data) {
     const companySection = document.getElementById('company-section');
-    if (data['date']) {
+    if (data['company']) {
         data['company'].forEach(option => {
             const input = createRadioButton('company', option);
             const label = createLabel('company', option);
