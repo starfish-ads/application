@@ -108,6 +108,12 @@ function createLabel(name, value) {
 
 
 function submitForm() {
+    // Clear previous results to indicate loading or processing new submission
+    var resultDiv = document.getElementById('result');
+    var scriptDiv = document.getElementById('script');
+    resultDiv.innerText = "Loading..."; // Provide immediate feedback that the submission is being processed
+    scriptDiv.innerText = "";
+
     const form = document.getElementById('myForm');
     const formData = new FormData(form);
 
@@ -133,17 +139,15 @@ function submitForm() {
         return response.json();
     })
     .then(data => {
-        var resultDiv = document.getElementById('result');
         if (Object.keys(data).length === 0) {
-            resultDiv.innerText = 'そのパターンはありません';
+            resultDiv.innerText = 'そのパターンはありません'; // "No such pattern exists"
         } else {
             resultDiv.innerText = data[0]['result'];
-
-            var scriptDiv = document.getElementById('script');
             scriptDiv.innerText = data[0]['script'];
         }
     })
     .catch(error => {
         console.error('Error:', error);
+        resultDiv.innerText = "Error loading results"; // Show error if fetch fails
     });
 }
