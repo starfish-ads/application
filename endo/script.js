@@ -112,8 +112,10 @@ function submitForm() {
     const formData = new FormData(form);
 
     // フォームデータをJSONオブジェクトに変換
+    const passParameter = getPassParameter();
     const data = {
         status: 'check',
+        pass: passParameter
     };
     formData.forEach((value, key) => { data[key] = value; });
 
