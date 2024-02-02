@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
+function getPassParameter() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const pass = urlParams.get('pass'); // 'pass'パラメータの値を取得
+    return pass;
+}
+
 function populateForm(data) {
     const companySection = document.getElementById('company-section');
     if (data['company']) {
