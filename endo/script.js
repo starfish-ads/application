@@ -1,10 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const apiUrl = 'https://us-central1-private-287112.cloudfunctions.net/promotion_suggestion';
-
+    
+    const passParameter = getPassParameter();
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: 'init' })
+        body: JSON.stringify({
+            status: 'init',
+            pass: passParameter
+        })
     };
 
     fetch(apiUrl, requestOptions)
