@@ -35,4 +35,5 @@
 
 ## お問い合わせ
 
-本プライバシーポリシーに関するご質問や懸念がある場合は、[お問い合わせ先](kamimura@starfish.co.jp)までご連絡ください。
+本プライバシーポリシーに関するご質問や懸念がある場合は、以下の連絡先までお問い合わせください：
+- Email: [kamimura@starfish.co.jp](mailto:kamimura@starfish.co.jp)
