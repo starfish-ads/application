@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIリクエスト送信</title>
+</head>
+<body>
+
+    <h1>電話番号配布リクエストを送信</h1>
+    
+    <button id="sendRequestButton">リクエスト送信</button>
+    
+    <div id="responseMessage"></div>
+    
+    <script>
+        document.getElementById("sendRequestButton").addEventListener("click", function() {
+            // 送信するデータ
+            const requestData = {
+                "api_key": "MEtCUb5dwPiI9hc",
+                "page_url": "https://example.com",
+                "user_ip": "192.168.0.1",
+                "session_id": "12345"
+            };
+            
+            // リクエストを送信
+            fetch("http://localhost:8080/ditribute_number", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response:", data);
+                document.getElementById("responseMessage").innerText = "受信した電話番号: " + data.phone_number;
+            })
+            .catch(error => {
+                console.error("エラーが発生しました:", error);
+                document.getElementById("responseMessage").innerText = "エラーが発生しました: " + error;
+            });
+        });
+    </script>
+
+</body>
+</html>
